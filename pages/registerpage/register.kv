@@ -1,0 +1,136 @@
+<RegisterPage>:
+    Screen:
+	    md_bg_color:0.7,.6,.9,.9
+
+    MDToolbar:
+		elevation:10
+		title:"Register Account"
+		pos_hint:{'top':1}
+		left_action_items:[["menu",lambda x:x]]
+		right_action_items:[["moon-waning-crescent",lambda x:app.switch_theme_style(x)]]
+		md_bg_color:[35/255,49/255,48/255,1]
+
+    MDCard:
+		radius:[dp(20)]
+		size_hint:None,None
+		size:400,550
+		pos_hint:{"center_x":.5,"center_y":.5}
+		elevation:15
+		padding:20
+		spacing:45
+		orientation:"vertical"
+		md_bg_color:[35/255,49/255,48/255,1]
+		MDLabel:
+			text:"Register"
+			font_style:'Button'
+			font_size:70
+			halign:"center"
+			size_hint_y:None
+			height:self.texture_size[1]
+	    MDTextFieldRound:
+		    id:username
+			hint_text:"Username"
+			icon_left:"account-edit"
+			size_hint_x:None
+			width:300
+			font_size:20
+			pos_hint:{"center_x":.5}
+		MDTextFieldRound:
+		    id:email
+			hint_text:"Email"
+			icon_left:"email"
+			size_hint_x:None
+			width:300
+			font_size:20
+			pos_hint:{"center_x":.5}
+	    MDTextFieldRound:
+		    id:password
+			hint_text:"Password"
+			icon_left:"form-textbox-lock"
+			size_hint_x:None
+			width:300
+			font_size:20
+			pos_hint:{"center_x":.5}
+        MDTextFieldRound:
+		    id:confirm_password
+			hint_text:"Confirm Password"
+			icon_left:"repeat"
+			size_hint_x:None
+			width:300
+			font_size:20
+			pos_hint:{"center_x":.5}
+
+
+        MDFillRoundFlatIconButton:
+            icon:'account-multiple-plus'
+            pos_hint:{"center_x":0.5,"center_y":0.1}
+            font_size: 20
+            text: "Submit"
+            on_release: root.create_new_user()
+
+    BoxLayout:
+        orientation:'horizontal'
+        pos_hint: {"center_x":0.5,"center_y": .1}
+        MDLabel:
+            halign: "center"
+            text:'[ref=<str>] Already have an Account? Log In [/ref]'
+            markup:True
+            color:[0,0,0,1]
+            underline: True
+            on_ref_press:root.register_to_login()
+
+
+
+
+<SuccessRegisterDialog@BoxLayout>:
+    orientation: "vertical"
+    padding: dp(40)
+
+    MDLabel:
+        text: "Successful!"
+        size_hint_y: None
+        height: self.texture_size[1]
+        halign: "center"
+        valign: "center"
+        bold: True
+        theme_text_color: "Custom"
+        text_color: 0, .7, 0, 1
+
+    MDLabel:
+        text: "Successfully Created A New Account!"
+        halign: "center"
+        valign: "top"
+        theme_text_color: "Custom"
+        text_color: 0, .7, 0, 1
+        font_style: "Caption"
+
+    MDFillRoundFlatButton:
+        id: button
+        text: "Confirm"
+        md_bg_color: 0, .7, 0, 1
+        pos_hint: {"center_x": .5}
+        on_press:app.register_to_login()
+
+<ErrorRegisterDialog@BoxLayout>:
+    orientation: "vertical"
+    spacing: dp(10)
+    padding: dp(20)
+
+    MDLabel:
+        text: "Creation Failed"
+        halign: "center"
+        theme_text_color: "Custom"
+        text_color: .9, 0, 0, 1
+
+    MDLabel:
+        text: "Please make sure to enter the correct information and try again!"
+        halign: "center"
+        theme_text_color: "Custom"
+        text_color: .9, 0, 0, 1
+        font_style: "Caption"
+
+    MDFillRoundFlatButton:
+        id: button
+        text: "Dismiss"
+        md_bg_color: .9, 0, 0, 1
+        pos_hint: {"center_x": .5}

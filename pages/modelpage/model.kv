@@ -1,0 +1,181 @@
+<ModelPage>:
+#:import Window kivy.core.window.Window
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+#:import IconLeftWidget kivymd.uix.list.IconLeftWidget
+
+    MDBackdrop:
+        id: backdrop
+        #on_open: print("on_open")
+        #on_close: print("on_close")
+        left_action_items: [["menu", lambda x: self.open()]]
+        right_action_items:[["home",lambda x:root.model_to_info()]]
+        title: 'Deep Leaning Method'
+        header_text: "Menu:"
+
+        MDBackdropBackLayer:
+            MyBackdropBackLayer:
+                id: backlayer
+
+        MDBackdropFrontLayer:
+            MyBackdropFrontLayer:
+                backdrop: backdrop
+                backlayer: backlayer
+
+
+<ItemBackdropFrontLayer@TwoLineAvatarListItem>
+    icon: "android"
+
+    IconLeftWidget:
+        icon: root.icon
+
+<MyBackdropFrontLayer>
+    backdrop: None
+    backlayer: None
+
+
+    GridLayout:
+        size_hint_y: None
+        height: self.minimum_height
+        cols: 1
+        padding: "5dp"
+
+        ItemBackdropFrontLayer:
+            text: "Model Selection"
+            secondary_text: "Popular Deep Learning Model"
+            icon: "select-multiple"
+            on_press:
+                root.backlayer.current = "screen two"
+                root.backdrop.open(-Window.height / 2)
+
+        ItemBackdropFrontLayer:
+            text: "Wound Segmentation"
+            secondary_text: "Wound Image Segmentation"
+            icon: "arrange-send-backward"
+            on_press:
+                root.backlayer.current = "screen one"
+                root.backdrop.open(-Window.height / 3)
+                root.file_manager_open()
+
+        ItemBackdropFrontLayer:
+            text: "Camera"
+            secondary_text: "Taking Pictuer for Further Analysis"
+            icon: "camera-plus-outline"
+            on_press:
+                #root.backlayer.current = "screen camera"
+                root.backdrop.open()
+                #root.backdrop.open(-Window.height / 2)
+
+<ItemBackdropBackLayer>
+    size_hint_y: None
+    height: self.minimum_height
+    spacing: "10dp"
+
+    canvas:
+        Color:
+            rgba:
+                root.theme_cls.primary_dark if root.selected_item \
+                else root.theme_cls.primary_color
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+
+    MDIconButton:
+        icon: root.icon
+        theme_text_color: "Custom"
+        text_color: 1, 1, 1, 1
+
+    MDLabel:
+        text: root.text
+        color: 1, 1, 1, 1
+
+<ItemBackdropBackLayerOfSecondScreen@BoxLayout>
+    size_hint_y: None
+    height: "40dp"
+    spacing: "25dp"
+    text: ""
+
+    MDCheckbox:
+        size_hint: None, None
+        size: "30dp", "30dp"
+        active: False or self.active
+        pos_hint: {"center_y": .5}
+        selected_color: 1, 1, 1, 1
+
+    MDLabel:
+        text: root.text
+        #font_style: 'H6'
+        color: 1, 1, 1, 1
+
+
+<MyBackdropBackLayer>
+    id: backlayer
+    transition: NoTransition()
+
+    Screen:
+        name: "screen one"
+        ScrollView
+            GridLayout:
+                size_hint_y: None
+                height: self.minimum_height
+                cols: 1
+                padding: "5dp"
+
+                ItemBackdropBackLayer:
+                    icon: "theater"
+                    text: "Wound Image Upload & Analyze"
+                ItemBackdropBackLayer:
+                    icon: "bandage"
+                    text: "Segmentation Result"
+                ItemBackdropBackLayer:
+                    icon: "desktop-mac"
+                    text: "Post Calculation & Evaluation"
+
+    Screen:
+        name: "screen two"
+
+        ScrollView
+
+            GridLayout:
+                size_hint_y: None
+                height: self.minimum_height
+                cols: 1
+                padding: "15dp"
+                spacing: "10dp"
+
+                MDLabel:
+                    text: "Types of Deep Leaning Models"
+                    bold: True
+                    #font_style: 'H6'
+                    color: 1, 1, 1, 1
+
+                Widget:
+                    size_hint_y: None
+                    height: "10dp"
+
+                ItemBackdropBackLayerOfSecondScreen:
+                    text: "VGG16"
+                ItemBackdropBackLayerOfSecondScreen:
+                    text: "SegNet"
+                ItemBackdropBackLayerOfSecondScreen:
+                    text: "U-Net"
+                ItemBackdropBackLayerOfSecondScreen:
+                    text: "Mask-RCNN"
+                ItemBackdropBackLayerOfSecondScreen:
+                    text: "MobileNetV2"
+                ItemBackdropBackLayerOfSecondScreen:
+                    text: "MobileNetV2+CCL"
+    Screen:
+        name: "screen camera"
+
+
+
+	    #Camera:
+		    #id: camera
+
+        MDSeparator:
+
+	    MDIconButton:
+	        icon: "circle-double"
+		    pos_hint:{"center_x":.5,"center_y":.12}
+		    user_font_size: "40sp"
+		    #on_release: root.capture()

@@ -1,0 +1,47 @@
+<SegmentPage>:
+    on_top_to_bottom_line:root.refresh()
+    orientation:'vertical'
+    BoxLayout:
+        orientation:'vertical'
+        spacing: "20dp"
+        MDToolbar:
+		    elevation:10
+		    title:"Segmentation Result"
+		    pos_hint:{'top':1}
+		    left_action_items:[["menu",lambda x:x]]
+		    right_action_items:[["backburger",lambda x:root.segment_to_model()],["check",lambda x:root.segment_to_detail()]]
+		    md_bg_color:[35/255,49/255,48/255,1]
+
+        ScrollView:
+            MDGridLayout:
+                rows:2
+                cols: 1
+                adaptive_height: True
+                padding: dp(60), dp(60)
+                spacing: dp(50)
+
+                SmartTileWithLabel:
+                    id:original_image
+                    size_hint_y: None
+                    height: "350dp"
+                    source: "segmentation/test/images/1.png"
+                    text: "[size=24]Original Image[/size]"
+
+                SmartTileWithLabel:
+                    size_hint_y: None
+                    height: "350dp"
+                    source: "segmentation/test/predictions/1.png"
+                    text: "[size=24]Segmentation Result[/size]"
+        #AsyncImage:
+            #anim_delay:2
+            #source: 'segmentation/test/predictions/1.png'
+
+        #BoxLayout:
+            #ImageButton:
+                #source:"image/return1.png"
+                #size:15,10
+                #on_press: root.right_side_slide()
+            #ImageButton:
+                #source:"image/success.png"
+                #size:15,10
+                #on_press: root.segment_to_info()

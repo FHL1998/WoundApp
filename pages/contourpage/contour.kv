@@ -1,0 +1,77 @@
+<ContourPage>:
+    orientation:'vertical'
+    canvas:
+        Color:
+            rgba:[1,1,1,1]
+        Rectangle:
+            size:self.size
+            pos:self.pos
+
+
+
+    BoxLayout:
+        orientation:'vertical'
+        spacing: "20dp"
+        MDToolbar:
+		    elevation:10
+		    title:"Contour Detection"
+		    pos_hint:{'top':1}
+		    left_action_items:[["menu",lambda x:x]]
+		    right_action_items:[["clipboard-text-outline", lambda x: root.gain_patient_name_and_image()],["backburger",lambda x:root.press_button()],["check",lambda x:root.contour_to_feature()]]
+		    md_bg_color:[35/255,49/255,48/255,1]
+
+
+        OneLineListItem:
+            #text: 'Patient Name'
+            font_style:"H6"
+            id:patient_name
+
+        ScrollView:
+
+            MDGridLayout:
+                rows:2
+                cols: 1
+                adaptive_height: True
+                padding: dp(60), dp(60)
+                spacing: dp(50)
+
+                SmartTileWithLabel:
+                    id: input_image
+                    size_hint_y: None
+                    height: "230dp"
+                    text: "[size=24]Original Image[/size]"
+
+                SmartTileWithLabel:
+                    id: output_image
+                    size_hint_y: None
+                    height: "290dp"
+                    #source: "outputimage/contour.jpg"
+                    text: "[size=24]Contour Result[/size]"
+
+        #MDBoxLayout:
+            #padding: "5dp"
+            #adaptive_size: True
+            #spacing: "10dp"
+            #pos_hint: {"center_x": .5}
+            #orientation: "horizontal"
+            #MDBoxLayout:
+                #padding: "5dp"
+                #adaptive_size: True
+                #spacing: "320dp"
+                #pos_hint: {"center_x": .5}
+                #MDIconButton:
+                    #user_font_size: "40sp"
+                    #theme_text_color: "Custom"
+                    #text_color: app.theme_cls.primary_color
+                    #icon: "backburger"
+                    #on_press: root.press_button()
+                #MDIconButton:
+                    #user_font_size: "40sp"
+                    #theme_text_color: "Custom"
+                    #text_color: app.theme_cls.primary_color
+                    #icon: "check"
+                    #on_press: root.contour_to_feature()
+
+
+
+

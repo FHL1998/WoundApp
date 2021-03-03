@@ -1,0 +1,145 @@
+<DetailPage>:
+    MDToolbar:
+		radius:[dp(5)]
+		elevation:10
+		title:"Segmentation Summary"
+		pos_hint:{'top':1}
+		left_action_items:[["menu",lambda x:x]]
+		md_bg_color:[35/255,49/255,48/255,1]
+    MDCard:
+		radius:[dp(20)]
+		size_hint:None,None
+		size:450,700
+		pos_hint:{"center_x":.5,"center_y":.47}
+		elevation:15
+		padding:20
+		spacing:30
+		orientation:"vertical"
+		md_bg_color:[230/255,230/255,250/255,1]
+    BoxLayout:
+        id: detail_page
+        orientation: "vertical"
+        canvas.before:
+            Color:
+                rgba: (1,1,1,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: 'image/backfeature.jpg'
+
+        GridLayout:
+            size_hint: 1, None
+            height: 80
+            cols: 2
+
+            Label:
+                id: segmentation_summary
+                text: "Segmentation Summary"
+                font_size:'26sp'
+                color: (0.6, 0.5, 1, 1)
+                bold:True
+
+
+
+        BoxLayout:
+            orientation:'horizontal'
+            BoxLayout:
+                orientation:'vertical'
+                AnchorLayout:
+                    anchor_x:'center'
+                    anchor_y:'center'
+                    Label:
+                        text:'Generation Date :'
+                        font_size:'22sp'
+                        text_size:cm(6),mm(7)
+                        halign:'center'
+                        color:0,0,0,1
+                        bold:True
+                AnchorLayout:
+                    anchor_x:'center'
+                    anchor_y:'center'
+                    Label:
+                        text:'Model Name :'
+                        font_size:'19sp'
+                        text_size:cm(6),mm(6)
+                        halign:'center'
+                        color:0.2,0.2,0.9,0.7
+                        bold:True
+                AnchorLayout:
+                    anchor_x:'center'
+                    anchor_y:'center'
+                    Label:
+                        text:'Model Accuracy :'
+                        font_size:'19sp'
+                        text_size:cm(6),mm(6)
+                        halign:'center'
+                        color:0.2,0.2,0.9,0.7
+                        bold:True
+                AnchorLayout:
+                    anchor_x:'center'
+                    anchor_y:'center'
+                    Label:
+                        text:'Pixe Area :'
+                        font_size:'19sp'
+                        text_size:cm(6),mm(6)
+                        halign:'center'
+                        color:0.2,0.2,0.9,0.7
+                        bold:True
+
+
+
+
+            BoxLayout:
+                orientation:'vertical'
+
+                AnchorLayout:
+                    anchor_x:'center'
+                    anchor_y:'top'
+                    Label:
+                        id: timelabel
+                        text: root.now.strftime('%Y-%m-%d %H:%M:%S')
+                        font_size:'19sp'
+                        halign:'center'
+                        text_size:cm(6),mm(6)
+                        color: 0, 0, 0, 1
+                AnchorLayout:
+                    anchor_x:'center'
+                    anchor_y:'center'
+                    Label:
+                        text:'UNET'
+                        font_size:'19sp'
+                        text_size:cm(6),mm(6)
+                        halign:'center'
+                        color:0.2,0.2,0.9,0.7
+                        bold:True
+                AnchorLayout:
+                    anchor_x:'center'
+                    anchor_y:'center'
+                    Label:
+                        text:'98.32%'
+                        font_size:'19sp'
+                        text_size:cm(6),mm(6)
+                        halign:'center'
+                        color:0.2,0.2,0.9,0.7
+                        bold:True
+                AnchorLayout:
+                    anchor_x:'center'
+                    anchor_y:'center'
+                    Label:
+                        text:'125'
+                        font_size:'19sp'
+                        text_size:cm(6),mm(6)
+                        halign:'center'
+                        color:0.2,0.2,0.9,0.7
+                        bold:True
+
+
+        BoxLayout:
+            ImageButton:
+                source:"image/return1.png"
+                size:30,15
+                on_press: root.back_to_segment()
+            ImageButton:
+                source:"image/success.png"
+                size:30,15
+                on_press: root.detail_to_info()

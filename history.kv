@@ -1,0 +1,55 @@
+<HistoryPage>
+    #name: "md icons"
+    app: app
+    on_enter: if not len(rv.data): root.set_list_patient_information()
+
+    BoxLayout:
+        orientation: "vertical"
+        spacing: "10dp"
+
+        MDToolbar:
+            elevation:10
+            type: "top"
+		    title: 'Patient History'
+		    pos_hint:{'top':1}
+		    left_action_items:[["arrow-left", lambda x: root.history_to_info()]]
+		    right_action_items:[["home-assistant", lambda x: root.feature_to_info()],["clipboard-text-outline", lambda x: root.view_detailed_information()]]
+		    md_bg_color:[35/255,49/255,48/255,1]
+            id: toolbar
+
+        BoxLayout:
+            orientation: "vertical"
+            spacing: "10dp"
+            padding: "20dp"
+
+            MDBoxLayout:
+                adaptive_height: True
+
+                MDIconButton:
+                    icon: "magnify"
+
+                MDTextField:
+                    id: search_field
+                    hint_text: "Search Patient Name"
+                    on_text: root.set_list_patient_information(self.text, True)
+
+            RecycleView:
+                id: rv
+                key_viewclass:"viewclass"
+                key_size: "height"
+
+                RecycleBoxLayout:
+                    padding: "10dp"
+                    default_size: None, dp(48)
+                    default_size_hint: 1, None
+                    size_hint_y: None
+                    height: self.minimum_height
+                    orientation: "vertical"
+
+
+<PatientOneLineIconListItem@OneLineIconListItem>
+    #on_press: print(self.text)
+    on_press: root.gain_patient_name()
+    IconLeftWidget:
+        icon: "badge-account"
+

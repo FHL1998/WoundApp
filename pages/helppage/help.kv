@@ -1,0 +1,76 @@
+<HelpPage>:
+    messages: messages
+    inputs: inputs
+    orientation: 'vertical'
+    spacing: 20
+    MDToolbar:
+		elevation:10
+		title:"Help ChatBot"
+		pos_hint:{'top':1}
+		left_action_items:[["menu",lambda x:x]]
+		right_action_items:[["refresh",lambda x:root.refresh_chat()],["keyboard-backspace",lambda x:root.chat_to_help()]]
+		md_bg_color:[35/255,49/255,48/255,1]
+    MDCard:
+		radius:[dp(20)]
+		size_hint:None,None
+		size:450,600
+		pos_hint:{"center_x":.5,"center_y":.5}
+		elevation:15
+		padding:20
+		spacing:30
+		orientation:"vertical"
+		md_bg_color:[106/255,90/255,205/255,0.8]
+
+        ScrollView:
+            scroll_type: ['bars', 'content']
+            bar_width: '15dp'
+
+            Messages:
+                id: messages
+                size_hint: 1, 0.8
+                default_size: None, dp(48)
+                cols: 1
+                row_default_height: '40dp'
+                row_force_default: True
+                size_hint_y: None
+
+        Inputs:
+            text_input: message_text_input
+            button: send_button
+            spacing: "10dp"
+            id: inputs
+            #size_hint=(1, .2)
+            size_hint: 1, 0.1
+
+
+            Widget:
+                size_hint_x: None
+                width: "5dp"
+            #MDTextField:
+                #id: message_text_input
+                #hint_text: "Type Hello To Activate ChatBot"
+                #helper_text: "Helper of App"
+                #helper_text_mode: "persistent"
+            MDTextFieldRound:
+                id: message_text_input
+                size_hint: 0.77, 0.7
+                pos_hint:{"x":.3}
+                hint_text:"Type Hello To Activate ChatBot"
+                hint_text_color: [0.5, 0.5, 0.5, 1.0]
+                write_tab: False
+                multiline: False
+            Widget:
+                size_hint_x: None
+                width: "6dp"
+            MDFillRoundFlatIconButton:
+                id: send_button
+                icon: "android"
+                text: 'Send'
+                #pos_hint:{"x":1}
+                size_hint: 0.26, 0.7
+
+
+
+
+
+

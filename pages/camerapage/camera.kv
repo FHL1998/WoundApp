@@ -1,0 +1,23 @@
+#:import Factory kivy.factory.Factory
+
+<CameraPage>:
+    orientation: "vertical"
+    MDToolbar:
+	    elevation:10
+		title:"Camera"
+		pos_hint:{'top':1}
+		left_action_items:[["menu",lambda x:root.return_info_button()]]
+		right_action_items:[["arrow-left",lambda x:root.camera_to_upload()]]
+		md_bg_color:[35/255,49/255,48/255,1]
+    BoxLayout:
+	    orientation: "vertical"
+	    Camera:
+		    id: camera
+        MDSeparator:
+
+	    MDIconButton:
+	        icon: "camera"
+		    size_hint: .5, .1
+		    pos_hint:{"center_x":.5,"center_y":.5}
+		    user_font_size: "48sp"
+		    on_release: root.capture()

@@ -1,0 +1,113 @@
+
+<UploadPage>:
+    #on_left_to_right_line:root.upload_to_info()
+
+    BoxLayout:
+        id: upload_main_box
+        orientation:"vertical"
+        canvas:
+            Color:
+                rgba:[1,1,1,1]
+            Rectangle:
+                size:self.size
+                pos:self.pos
+
+        MDToolbar:
+		    elevation:10
+		    title:"Upload Wound Image"
+		    pos_hint:{'top':1}
+		    left_action_items:[["menu",lambda x:x]]
+		    right_action_items:[["home",lambda x:root.upload_to_info()],["moon-waning-crescent",lambda x:app.ThemeMode(x)]]
+		    md_bg_color:[35/255,49/255,48/255,1]
+
+        MDBanner:
+            id: banner
+            over_widget: scroll
+
+        ScrollView:
+            id: scroll
+
+        OneLineListItem:
+            text: "Function Instruction"
+            font_size: dp(60)
+            on_release:
+                banner.type = "three-line"
+                banner.text = \
+                [\
+                "Function bar in the lower right corner", \
+                "The function bar in the lower right corner contains uploading", \
+                "analyzing and taking photos.", \
+                ]
+                banner.right_action = ["CLOSE", lambda x: banner.hide()]
+                banner.show()
+
+        OneLineListItem:
+            text: "Principle Introduction"
+            font_size: dp(60)
+            on_release:
+                banner.type = "three-line"
+                banner.text = \
+                [\
+                "This method is based on OpenCv", \
+                "Using ideal threshold to generate the contour and further area ", \
+                "calculation.", \
+                ]
+                banner.right_action = ["CLOSE", lambda x: banner.hide()]
+                banner.show()
+
+        MDFloatingActionButtonSpeedDial:
+            pos_hint: {'top': .2, 'center_x': .5}
+            data: app.data
+            size: dp(90), dp(90)
+            root_button_anim: True
+            hint_animation: True
+            bg_hint_color: app.theme_cls.primary_light
+            callback: root.callback
+
+
+        Label:
+            id: upload_tip
+            color: 1,0,0,1
+            font_name: "site_packages/DroidSansFallback.ttf"
+
+        Label:
+            id: status
+            color: 0,0,0,1
+
+        Label:
+            id: upload_info
+            color: 0,0,0,1
+
+
+
+
+<SaveDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        #MDFileManager:
+            #id: filechooser
+            #preview: False
+            #on_selection: text_input.text = self.selection and self.selection[0] or ''
+        FileChooserListView:
+            id: filechooser
+            # path: '/storage/emulated/0'
+            on_selection: text_input.text = self.selection and self.selection[0] or ''
+
+        TextInput:
+            id: text_input
+            size_hint_y: .1
+            multiline: False
+
+        BoxLayout:
+            size_hint_y: .1
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+                font_name: "site_packages/DroidSansFallback.ttf"
+
+            Button:
+                text: "Confirm"
+                on_release: root.save(filechooser.path, text_input.text)
+                font_name: "site_packages/DroidSansFallback.ttf"

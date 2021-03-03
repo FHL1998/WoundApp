@@ -1,0 +1,289 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+<MePage>
+
+    #on_start:root.on_start()
+
+    BoxLayout:
+        orientation:"vertical"
+        id: me_main_box
+
+        MDToolbar:
+		    elevation:10
+		    title:"Personal Setting"
+		    pos_hint:{'top':1}
+		    left_action_items:[["backburger",lambda x:root.return_info_button()]]
+		    right_action_items:[["check",lambda x:root.save_all_changes()],["cog-refresh",lambda x:root.reset_warning()]]
+		    md_bg_color:[35/255,49/255,48/255,1]
+
+        GridLayout:
+            cols: 1
+            pos_hint: {'top': 1, 'left': 1}
+            size_hint: 1, .1
+            spacing: 1
+            padding: 1
+
+        GridLayout:
+            rows: 2
+            pos_hint: {'top': .5, 'left': 1}
+            size_hint: 1, .62
+            spacing: 10
+            padding: 10, 0, 10, 0
+
+            ImageButton:
+                id: me_avatar
+                source: 'https://wound-1301658428.cos.ap-nanjing.myqcloud.com/avatars/man-1.png'
+                #source: 'avatars/man.png'
+                on_press:root.avatar_list()
+
+            AnchorLayout:
+                anchor_x: "center"
+                anchor_y: "center"
+                MDTextFieldRound:
+                    id: name_input
+			        hint_text:"User"
+			        icon_left:"account-box"
+			        size_hint_x:None
+			        width:110
+			        font_size:22
+			        pos_hint:{"center_x":.5}
+
+        ScrollView:
+            pos_hint: {'top': .65, 'left': 1}
+            size_hint: 1, .55
+            bar_pos_y: 'left'
+            bar_width: 10
+            GridLayout:
+                cols: 3
+                id: avatar_grid
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: '70dp'
+                row_force_default: True
+                spacing: 20, 20
+                padding: 20
+
+        #MDSeparator:
+
+        ScrollView:
+            MDGridLayout:
+                adaptive_height: True
+                cols: 1
+                padding: "10dp"
+                spacing: "10dp"
+
+                MDBoxLayout:
+                    orientation: "vertical"
+                    adaptive_height: True
+                    padding: "5dp"
+                    spacing: "10dp"
+
+                    MDLabel:
+                        text: "Account Setting"
+                        halign: "left"
+                        font_style: "H6"
+                        theme_text_color: "Primary"
+                    Widget:
+                        size_hint_y: None
+                        height: "3dp"
+
+                    MDSeparator:
+
+                    #MDIconButton:
+                        #on_press:root.show_theme_picker()
+
+                    OneLineAvatarIconListItem:
+                        text: "Dark Mode"
+                        color: app.theme_cls.text_color
+                        #on_size:
+                            #self.ids._right_container.width = container.width
+                            #self.ids._right_container.x = container.width
+
+                        IconLeftWidget:
+                            icon: "theme-light-dark"
+
+                        #Container:
+                            #id: container
+                        IconRightSampleWidget:
+                            on_active: if self.active: app.switch_theme_style()
+                            #MDSwitch:
+                                #pos_hint: {'center_x': .8, 'center_y': .5}
+                                #on_active: if self.active: app.switch_theme_style()
+
+                    OneLineAvatarIconListItem:
+                        text: "Password Visibility"
+                        color: app.theme_cls.text_color
+                        #on_size:
+                            #self.ids._right_container.width = container.width
+                            #self.ids._right_container.x = container.width
+
+                        IconLeftWidget:
+                            icon: "form-textbox-password"
+
+                        #Container:
+                            #id: container
+                        IconRightSampleWidget:
+                            on_active: if self.active: root.password_visibility()
+                            #MDSwitch:
+                                #pos_hint: {'center_x': .8, 'center_y': .5}
+                                #on_active: if self.active: root.password_visibility()
+
+                    TwoLineAvatarIconListItem:
+                        text: "Language Setting"
+                        secondary_text: "Current:EN"
+                        on_press:root.show_language_setting_dialog()
+                        IconLeftWidget:
+                            icon: "ab-testing"
+
+
+                    OneLineAvatarIconListItem:
+                        text: "Account Setting"
+                        color: app.theme_cls.text_color
+                        #on_size:
+                            #self.ids._right_container.width = container.width
+                            #self.ids._right_container.x = container.width
+                        on_press:root.show_account_dialog()
+                        IconLeftWidget:
+                            icon: "account-cog"
+
+                    OneLineAvatarIconListItem:
+                        text: "Password Resetting"
+                        color: app.theme_cls.text_color
+                        #on_size:
+                            #self.ids._right_container.width = container.width
+                            #self.ids._right_container.x = container.width
+                        on_press:root.show_reset_password_dialog()
+                        IconLeftWidget:
+                            icon: "shield-refresh"
+
+                    OneLineAvatarIconListItem:
+                        text: "Logout Current Account"
+                        color: app.theme_cls.text_color
+                        #on_size:
+                            #self.ids._right_container.width = container.width
+                            #self.ids._right_container.x = container.width
+                        on_press:
+                            root.me_to_login()
+                            root.reset_login_email_null()
+                        IconLeftWidget:
+                            icon: "logout"
+
+                    MDBoxLayout:
+                        orientation:'vertical'
+                        size_hint: None, None
+                        adaptive_size: True
+                        spacing: "30dp"
+
+                        #ThemeStyleCheckbox:
+
+                        #Label:
+                            #text: "Light"
+                            #color: app.theme_cls.text_color
+
+                        #ThemeStyleCheckbox:
+
+                        #Label:
+                            #text: "Dark"
+                            #color: app.theme_cls.text_color
+
+
+<ResetDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        Label:
+            text: 'WARNING:\nThe reset operation cannot be undone,\n are you sure to continue ?'
+
+        BoxLayout:
+            size_hint_y: .15
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Confirm"
+                on_release: root.save()
+
+<ThemeStyleCheckbox@MDCheckbox>
+    group: "style"
+    size_hint: None, None
+    size: "48dp", "48dp"
+    on_active: if self.active: app.switch_theme_style()
+
+<ItemConfirm>
+    on_release: root.set_icon(check)
+
+    CheckboxLeftWidget:
+        id: check
+        group: "check"
+
+<ResetWarningDialog@BoxLayout>
+    orientation: "vertical"
+    padding: dp(20)
+
+    MDLabel:
+        text: "Reset Settings?"
+        halign: "center"
+        valign: "center"
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_color
+
+    MDLabel:
+        text: "This operation will reset your account to default factory settings."
+        theme_text_color: "Secondary"
+        font_style: "Caption"
+    BoxLayout:
+        orientation:'horizontal'
+        spacing:30
+        MDFillRoundFlatButton:
+            id: cancel
+            text: "Cancel"
+            pos_hint: {"center_x": .5}
+            md_bg_color: 1, .75, 0, 1
+
+        MDFillRoundFlatButton:
+            id: confirm
+            text: "Confirm"
+            on_press:root.reset_all()
+            pos_hint: {"center_x": .5}
+            md_bg_color: 1, .75, 0, 1
+
+<ResetPasswordDialogsContent>
+    orientation: "vertical"
+    #spacing:5
+    padding: dp(20)
+
+    MDLabel:
+        text: "Password Reset"
+        halign: "center"
+        valign: "center"
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_color
+
+    MDLabel:
+        text: "Please enter old password before reset"
+        theme_text_color: "Secondary"
+        font_style: "Caption"
+
+    MDTextField:
+        id:old_password
+        hint_text: "Old Password"
+
+    MDTextField:
+        id:new_password
+        hint_text: "New Password"
+
+    BoxLayout:
+        orientation:'horizontal'
+        spacing:35
+        MDFillRoundFlatButton:
+            id: submit
+            text: "Submit"
+            #pos_hint: {"center_x": .5}
+            md_bg_color: 1, .75, 0, 1
+            on_press:root.reset_password()
+        MDFillRoundFlatButton:
+            id: dismiss
+            text: "Cancel"
+            #pos_hint: {"center_x": .5}
+            md_bg_color: 1, .75, 0, 1

@@ -1,0 +1,173 @@
+<HistoryPage>
+    #name: "md icons"
+    app: app
+    on_enter: if not len(rv.data): root.set_list_patient_information()
+
+    AKSwipeMenu:
+        id: menu
+        on_open: but.icon = "arrow-down"
+        on_dismiss: but.icon ="arrow-up"
+
+        AKSwipeMenuMainContent:
+            orientation: "vertical"
+            spacing: "10dp"
+            #padding: "20dp"
+            MDToolbar:
+                elevation:10
+                type: "top"
+		        title: 'Patient History'
+		        pos_hint:{'top':1}
+		        left_action_items:[["arrow-left", lambda x: root.history_to_info()]]
+		        right_action_items:[["home-assistant", lambda x: root.feature_to_info()],["clipboard-text-outline", lambda x: root.view_detailed_information()]]
+		        md_bg_color:[35/255,49/255,48/255,1]
+                id: toolbar
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint_y:0.15
+                MDIconButton:
+                    icon: "magnify"
+                    user_font_size: "30sp"
+                MDTextField:
+                    id: search_field
+                    #icon_right:"magnify"
+                    font_size:"20sp"
+                    hint_text: "Search Patient Name"
+                    on_text: root.set_list_patient_information(self.text, True)
+
+                MDIconButton:
+                    icon: "delete-empty-outline"
+                    user_font_size: "24sp"
+                    on_press:root.make_search_textfield_null()
+
+            RecycleView:
+                id: rv
+                key_viewclass:"viewclass"
+                key_size: "height"
+
+                RecycleBoxLayout:
+                    padding: "10dp"
+                    default_size: None, dp(48)
+                    default_size_hint: 1, None
+                    size_hint_y: None
+                    height: self.minimum_height
+                    orientation: "vertical"
+
+        AKSwipeMenuTopContent:
+
+            MDBoxLayout:
+                size_hint_y: None
+                height: dp(60)
+                padding: dp(10)
+
+                MDLabel:
+                    text: "Swipe up for more details"
+
+                MDIconButton:
+                    id: but
+                    icon: "arrow-up"
+                    pos_hint: {"center_y": .5}
+                    theme_text_color: "Custom"
+                    text_color: 1,1,1,1
+                    on_release:
+                        if menu.get_status()=="close": menu.open()
+                        else:menu.dismiss()
+
+        AKSwipeMenuBottomContent:
+
+            MDBoxLayout:
+                orientation:'vertical'
+                size_hint_y: None
+                height: dp(400)
+                BoxLayout:
+                    orientation:'horizontal'
+                    #size_hint_y:0.2
+                    OneLineIconListItem:
+                        theme_text_color: "Custom"
+                        text_color: (0.2,0.2,0.9,0.7)
+                        text: "Creation Date:"
+                        font_style:"H6"
+                        IconLeftWidget:
+                            icon: "calendar"
+                    OneLineListItem:
+                        #text: 'Patient Age'
+                        font_style:"H6"
+                        id:selected_patient_creation_date
+                BoxLayout:
+                    orientation:'horizontal'
+                    #size_hint_y:0.2
+                    OneLineIconListItem:
+                        theme_text_color: "Custom"
+                        text_color: (0.2,0.2,0.9,0.7)
+                        text: "Age:"
+                        font_style:"H6"
+                        IconLeftWidget:
+                            icon: "numeric-9-plus-box-multiple"
+                    OneLineListItem:
+                        #text: 'Patient Age'
+                        font_style:"H6"
+                        id:selected_patient_age
+
+                BoxLayout:
+                    orientation:'horizontal'
+                    OneLineIconListItem:
+                        theme_text_color: "Custom"
+                        text_color: (0.2,0.2,0.9,0.7)
+                        text: "Gender:"
+                        font_style:"H6"
+                        IconLeftWidget:
+                            icon: "human-male-female"
+                    OneLineListItem:
+                        #text: 'Patient Gender'
+                        font_style:"H6"
+                        id:selected_patient_gender
+
+                BoxLayout:
+                    orientation:'horizontal'
+                    OneLineIconListItem:
+                        theme_text_color: "Custom"
+                        text_color: (0.2,0.2,0.9,0.7)
+                        text: "Swelling:"
+                        font_style:"H6"
+                        IconLeftWidget:
+                            icon: "feature-search"
+                    OneLineListItem:
+                        font_style:"H6"
+                        id:selected_patient_swelling
+
+                BoxLayout:
+                    orientation:'horizontal'
+                    OneLineIconListItem:
+                        theme_text_color: "Custom"
+                        text_color: (0.2,0.2,0.9,0.7)
+                        text: "Area:"
+                        font_style:"H6"
+                        IconLeftWidget:
+                            icon: "image-area"
+                    OneLineListItem:
+                        font_style:"H6"
+                        id:selected_patient_area
+
+                BoxLayout:
+                    orientation:'horizontal'
+                    OneLineIconListItem:
+                        theme_text_color: "Custom"
+                        text_color: (0.2,0.2,0.9,0.7)
+                        text: "Infection:"
+                        font_style:"H6"
+                        IconLeftWidget:
+                            icon: "alert"
+                    OneLineListItem:
+                        #text: 'Patient Gender'
+                        font_style:"H6"
+                        id:selected_patient_infection
+
+
+
+<PatientOneLineIconListItem@OneLineIconListItem>
+    #on_press: print(self.text)
+    on_press: root.view_selected_patient_information()
+    IconLeftWidget:
+        icon: "badge-account"
+
+
+

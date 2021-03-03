@@ -1,0 +1,137 @@
+<LoginPage>:
+#:import MDRoundFlatIconButton kivymd.uix.button.MDRoundFlatIconButton
+#:import MDFillRoundFlatIconButton kivymd.uix.button.MDFillRoundFlatIconButton
+    Screen:
+	    md_bg_color:0.7,.6,.9,.9
+	MDToolbar:
+		elevation:10
+		title:"Login for App"
+		pos_hint:{'top':1}
+		left_action_items:[["account-box",lambda x:root.login_to_register()]]
+		right_action_items:[["account-key",lambda x:root.login_to_info()],["account-question",lambda x:root.login_to_forget()],["google",lambda x:x],["github",lambda x:root.login_to_github_login()]]
+		md_bg_color:[35/255,49/255,48/255,1]
+
+	MDCard:
+		radius:[dp(20)]
+		size_hint:None,None
+		size:400,400
+		pos_hint:{"center_x":.5,"center_y":.5}
+		elevation:15
+		padding:20
+		spacing:40
+		orientation:"vertical"
+		md_bg_color:[35/255,49/255,48/255,1]
+		MDLabel:
+			text:"Login"
+			font_style:'Button'
+			font_size:70
+			halign:"center"
+			size_hint_y:None
+			height:self.texture_size[1]
+	    MDRelativeLayout:
+            size_hint_y: None
+            height: email.height
+		    MDTextFieldRound:
+		        id:email
+			    hint_text:"Email"
+			    icon_left:"email"
+			    size_hint_x:None
+			    width:300
+			    font_size:20
+			    padding:
+                    self._lbl_icon_left.texture_size[1] + dp(10) if self.icon_left else dp(15),(self.height / 2) - (self.line_height / 2),self._lbl_icon_right.texture_size[1] + dp(20),0
+			    pos_hint:{"center_x":.5,"center_y": .5}
+			MDIconButton:
+                icon: "arrow-down-drop-circle-outline"
+                pos: email.width - self.width + dp(45), 0
+                ripple_scale: .5
+                pos_hint: {"center_y": .5}
+                on_release:
+                    #self.icon = "account" if self.icon == "account-off" else "account-off"
+                    root.show_user_list_bottom_sheet()
+
+        MDRelativeLayout:
+            size_hint_y: None
+            height: password.height
+            MDTextFieldRound:
+                id: password
+                hint_text:"Password"
+                size_hint_x:None
+                width:300
+                font_size:20
+                padding:
+                    self._lbl_icon_left.texture_size[1] + dp(10) if self.icon_left else dp(15),(self.height / 2) - (self.line_height / 2),self._lbl_icon_right.texture_size[1] + dp(20),0
+                pos_hint:{"center_x":.5,"center_y": .5}
+                password: True
+                color_active: app.theme_cls.primary_light
+                icon_left: "key-variant"
+                on_double_tap:root.auto_password_fill()
+
+            MDIconButton:
+                icon: "eye-off"
+                pos: password.width - self.width + dp(45), 0
+                ripple_scale: .5
+                pos_hint: {"center_y": .5}
+                on_release:
+                    self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                    password.password = False if password.password is True else True
+
+        BoxLayout:
+            pos_hint:{"center_x":.45}
+            spacing:10
+            Label:
+                text: 'Remember Me'
+                font_size: 15
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            MDCheckbox:
+                id: remember_me
+                size: "35dp", "35dp"
+                halign: 'left'
+                valign: 'center'
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                size_hint: None, 1
+                on_active: if self.active:root.detect_remember_option()
+                #on_active: if self.active: root.remember_option()
+
+
+        #MDCheckbox:
+            #size_hint: None, None
+            #size: "48dp", "48dp"
+            #pos_hint: {'center_x': .5, 'center_y': .5}
+        #MDLabel:
+            #halign: "center"
+            #font_style:'Button'
+            #text:'[ref=<str>] Forget Password ? [/ref]'
+            #markup:True
+            #color:[1,1,1,1]
+            #underline: True
+            #on_ref_press:root.login_to_forget()
+
+        AKProgressbutton:
+            id: progressbutton_success
+            pos_hint:{"center_x":0.5,"center_y":0.3}
+            button: MDFillRoundFlatIconButton(text="Login",font_size=20,on_release=root.login_validate, icon="login")
+
+    BoxLayout:
+        orientation:'horizontal'
+        pos_hint: {"center_x":0.5,"center_y": .15}
+        #MDLabel:
+            #halign: "center"
+            #text:'[ref=<str>] Do not have an Account yet? [/ref]'
+            #font_style:'Subtitle1'
+            #theme_text_color: "Custom"
+            #color:[0,0,0,1]
+            #color:[100/255,149/255,237/255,1]
+            #underline: True
+            #on_ref_press:root.login_to_register()
+
+        #MDLabel:
+            #halign: "center"
+            #text:'[ref=<str>] Administrator Mode [/ref]'
+            #markup:True
+            #color:[0,0,0,1]
+            #underline: True
+            #on_ref_press:root.login_to_info()
+

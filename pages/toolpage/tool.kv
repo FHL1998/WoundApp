@@ -1,0 +1,69 @@
+<ToolPage>:
+
+
+	BoxLayout:
+        id: tool_page
+        orientation: "vertical"
+        canvas.before:
+            Color:
+                rgba: (1,1,1,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                #source: "https://wound-1301658428.cos.ap-nanjing.myqcloud.com/image/weather.jpg"
+                source: 'image/weather.jpg'
+        MDToolbar:
+            elevation:10
+            type: "top"
+		    title: 'Weather Report'
+		    pos_hint:{'top':1}
+		    left_action_items:[["weather-sunny",lambda x:x]]
+		    right_action_items:[["refresh",lambda x:root.show_current_weather(root.location)],["keyboard-return", lambda x: root.tool_to_info()]]
+		    md_bg_color:[123/255,104/255,238/255,1]
+
+
+        BoxLayout:
+            Label:
+                text: "{} ({})".format(root.location[0], root.location[1])
+
+                font_size: "30dp"
+                bold:True
+            Label:
+                id:temp_now
+                text: "[u]Current[/u]"
+                font_size: "25dp"
+                bold:True
+                markup:True
+	    BoxLayout:
+            orientation: "vertical"
+            AsyncImage:
+                source: root.conditions_image
+            Label:
+                text: root.conditions
+                font_size:'22sp'
+                text_size:cm(6),mm(6)
+                halign:'center'
+                color:1,1,1,1
+                bold:True
+                markup:True
+        BoxLayout:
+            orientation: "horizontal"
+            Label:
+                id:temp_min
+                text: "Lowest Temp"
+                font_size:'19sp'
+                text_size:cm(6),mm(6)
+                halign:'center'
+                color:1,1,1,1
+                bold:True
+            Label:
+                id:temp_max
+                text: "Highest Temp"
+                font_size:'19sp'
+                text_size:cm(6),mm(6)
+                halign:'center'
+                color:1,1,1,1
+                bold:True
+
+
+

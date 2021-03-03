@@ -1,0 +1,83 @@
+<GithubPage>:
+#:import MDRoundFlatIconButton kivymd.uix.button.MDRoundFlatIconButton
+#:import MDFillRoundFlatIconButton kivymd.uix.button.MDFillRoundFlatIconButton
+    Screen:
+	    md_bg_color:0.7,.6,.9,.9
+	MDToolbar:
+		elevation:10
+		title:"Github Login"
+		pos_hint:{'top':1}
+		left_action_items:[["github",lambda x:x]]
+		right_action_items:[["keyboard-backspace",lambda x:root.github_login_to_login()]]
+		md_bg_color:[35/255,49/255,48/255,1]
+
+	MDCard:
+		radius:[dp(20)]
+		size_hint:None,None
+		size:400,400
+		pos_hint:{"center_x":.5,"center_y":.5}
+		elevation:15
+		padding:20
+		spacing:40
+		orientation:"vertical"
+		md_bg_color:[35/255,49/255,48/255,1]
+		MDLabel:
+			text:"Github Login"
+			font_style:'Button'
+			font_size:50
+			halign:"center"
+			size_hint_y:0.5
+			height:self.texture_size[1]
+	    MDRelativeLayout:
+            size_hint_y: None
+            height: email.height
+		    MDTextFieldRound:
+		        id:email
+			    hint_text:"Github Email"
+			    icon_left:"email"
+			    size_hint_x:None
+			    width:300
+			    font_size:20
+			    padding:
+                    self._lbl_icon_left.texture_size[1] + dp(10) if self.icon_left else dp(15),(self.height / 2) - (self.line_height / 2),self._lbl_icon_right.texture_size[1] + dp(20),0
+			    pos_hint:{"center_x":.5,"center_y": .5}
+
+        MDRelativeLayout:
+            size_hint_y: None
+            height: password.height
+            MDTextFieldRound:
+                id: password
+                hint_text:"Corresponding Password"
+                size_hint_x:None
+                width:300
+                font_size:20
+                padding:
+                    self._lbl_icon_left.texture_size[1] + dp(10) if self.icon_left else dp(15),(self.height / 2) - (self.line_height / 2),self._lbl_icon_right.texture_size[1] + dp(20),0
+                pos_hint:{"center_x":.5,"center_y": .5}
+                password: True
+                color_active: app.theme_cls.primary_light
+                icon_left: "key-variant"
+                on_double_tap:root.auto_password_fill()
+
+            MDIconButton:
+                icon: "eye-off"
+                pos: password.width - self.width + dp(45), 0
+                ripple_scale: .5
+                pos_hint: {"center_y": .5}
+                on_release:
+                    self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                    password.password = False if password.password is True else True
+
+        MDRoundFlatButton:
+			text:"Login"
+			font_size:25
+			size_hint:None,None
+			pos_hint:{"center_x":0.5,"center_y":0.5}
+			on_press:root.login_GitHub()
+        #AKProgressbutton:
+            #id: progressbutton_success
+            #pos_hint:{"center_x":0.5,"center_y":0.3}
+            #button: MDFillRoundFlatIconButton(text="Login",font_size=20,on_release=root.login_GitHub, icon="login")
+
+
+

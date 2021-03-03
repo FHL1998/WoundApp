@@ -1,0 +1,166 @@
+<CreatePage>:
+    #rows: 8
+    MDToolbar:
+		radius:[dp(5)]
+		elevation:10
+		title:"Create Patient Information"
+		pos_hint:{'top':1}
+		left_action_items:[["menu",lambda x:x]]
+		md_bg_color:[35/255,49/255,48/255,1]
+    MDCard:
+		radius:[dp(20)]
+		size_hint:None,None
+		size:450,700
+		pos_hint:{"center_x":.5,"center_y":.47}
+		elevation:15
+		padding:20
+		spacing:30
+		orientation:"vertical"
+		md_bg_color:[230/255,230/255,250/255,1]
+
+        BoxLayout:
+            padding: 1
+            spacing: 1
+        BoxLayout:
+            padding: 38
+            spacing: 20
+            MDTextFieldRound:
+                id:PatientName
+			    hint_text:"Patient's Name"
+			    hint_text_color: [0.5, 0.5, 0.5, 1.0]
+			    write_tab: False
+                multiline: False
+			    icon_left:"account"
+			    size_hint_x:None
+			    width:330
+			    font_size:20
+			    pos_hint:{"center_x":.5}
+
+        BoxLayout:
+            padding: 38
+            spacing: 20
+            MDTextFieldRound:
+                id:Age
+			    hint_text:"Age"
+			    mode: "rectangle"
+			    hint_text_color: [0.5, 0.5, 0.5, 1.0]
+			    write_tab: False
+                multiline: False
+			    icon_left:"numeric"
+			    size_hint_x:None
+			    width:330
+			    font_size:20
+			    pos_hint:{"center_x":.5}
+
+
+        BoxLayout:
+            padding: 38
+            spacing: 20
+            MDTextFieldRound:
+                id:Gender
+			    hint_text:"Gender"
+			    hint_text_color: [0.5, 0.5, 0.5, 1.0]
+			    write_tab: False
+                multiline: False
+			    icon_left:"gender-male-female"
+			    size_hint_x:None
+			    width:330
+			    font_size:20
+			    pos_hint:{"center_x":.5}
+
+
+        MDRelativeLayout:
+            size_hint_y: None
+            height: CreationDate.height
+            padding: 38
+            spacing: 20
+            MDTextFieldRound:
+                id:CreationDate
+			    hint_text:"CreationDate"
+			    hint_text_color: [0.5, 0.5, 0.5, 1.0]
+			    write_tab: False
+                multiline: False
+			    icon_left:"calendar"
+			    size_hint_x:None
+			    width:330
+			    font_size:20
+			    #padding:
+                    #self._lbl_icon_left.texture_size[1] + dp(10) if self.icon_left else dp(15),(self.height / 2) - (self.line_height / 2),self._lbl_icon_right.texture_size[1] + dp(20),0
+			    pos_hint:{"center_x":.5,"center_y": .78}
+			MDIconButton:
+                icon: "arrow-down-drop-circle-outline"
+                pos: CreationDate.width - self.width + dp(55), 0
+                ripple_scale: .5
+                pos_hint: {"center_y": .78}
+                on_release:
+                    root.open()
+
+
+        BoxLayout:
+            padding: 85
+            spacing: 80
+            MDRoundFlatIconButton:
+                id:CreatePatient
+                icon: "creation"
+                text:"Create Patient File"
+                width:230
+                font_size:20
+                pos_hint: {"center_x": .5, "center_y": .8}
+                on_press:
+                    root.createNewUser()
+                    #root.makeInputTextNull()
+                    #root.success()
+
+        BoxLayout:
+            padding: 2
+            spacing: 2
+
+
+        BoxLayout:
+            orientation:'horizontal'
+            MDLabel:
+                id:CreateLater
+                halign: "center"
+                text:'[ref=<str>] Create It Latter [/ref]'
+                markup:True
+                color:[0,0,0,1]
+                underline: True
+                on_ref_press:root.skip_create()
+
+            MDLabel:
+                id:BackHome
+                halign: "center"
+                text:'[ref=<str>] Back To Home [/ref]'
+                markup:True
+                color:[0,0,0,1]
+                underline: True
+                on_ref_press:root.back_home()
+
+<SuccessDialog@BoxLayout>:
+    orientation: "vertical"
+    padding: dp(40)
+
+    MDLabel:
+        text: "Successful!"
+        size_hint_y: None
+        height: self.texture_size[1]
+        halign: "center"
+        valign: "center"
+        bold: True
+        theme_text_color: "Custom"
+        text_color: 0, .7, 0, 1
+
+    MDLabel:
+        text: "Successfully Create Information!"
+        halign: "center"
+        valign: "top"
+        theme_text_color: "Custom"
+        text_color: 0, .7, 0, 1
+        font_style: "Caption"
+
+    MDFillRoundFlatButton:
+        id: button
+        text: "Confirm"
+        md_bg_color: 0, .7, 0, 1
+        pos_hint: {"center_x": .5}
+        on_press:app.create_to_info()

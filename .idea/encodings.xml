@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/asyncio_task/asyncio.py" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/pages/detailpage/detail.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pages/toolpage/tool.py" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

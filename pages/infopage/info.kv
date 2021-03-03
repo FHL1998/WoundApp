@@ -1,0 +1,329 @@
+<InfoPage>:
+
+    ScreenManager:
+        MDScreen:
+
+            AsyncImage:
+                source: "https://776f-wound-1gl3udopb70e648a-1301658428.tcb.qcloud.la/image/hospital1.png?sign=d5b16d768af9f0d7fde20f492ea6cb62&t=1614602536"
+                #source: "https://wound-1301658428.cos.ap-nanjing.myqcloud.com/image/hospital.png"
+                opacity: .3
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                CustomToolbar:
+                    id: toolbar
+                    size_hint_y: None
+                    height: app.theme_cls.standard_increment
+                    md_bg_color: app.theme_cls.primary_color
+                    elevation: 10
+                    padding: "8dp", 0, 0, 0
+                    pos_hint: {"top": 1}
+
+                    MDIconButton:
+                        id: menu_btn
+                        icon: "menu"
+                        theme_text_color: "Custom"
+                        text_color: toolbar.specific_text_color
+                        md_bg_color: app.theme_cls.primary_color
+                        pos_hint: {"center_y": .5}
+                        on_press:root.tap_target_start()
+                        #on_release:nav.set_state("open")
+
+                    Widget:
+                        size_hint_x: None
+                        width: "25dp"
+
+                    MDLabel:
+                        text: "Home"
+                        shorten: True
+                        font_style: "H6"
+                        theme_text_color: "Custom"
+                        text_color: toolbar.specific_text_color
+
+                    MDIconButton:
+                        id: search_btn
+                        icon: "magnify"
+                        md_bg_color: 0, 0, 0, 0
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        pos_hint: {"center_y": .5}
+                        on_press:root.info_to_history()
+
+                    MDIconButton:
+                        id: qrcode_btn
+                        icon: "qrcode"
+                        md_bg_color: 0, 0, 0, 0
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        pos_hint: {"center_y": .5}
+                        on_press:root.qrcode()
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: dp(200)
+                    padding: dp(200)
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: dp(200)
+                    padding: dp(200)
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: dp(200)
+                    padding: dp(200)
+                GridLayout:
+                    cols: 1
+                    pos_hint: {'top': 1, 'left': 1}
+                    size_hint: 1, 1
+                    spacing: 100
+                    padding: 100
+                GridLayout:
+                    cols: 1
+                    pos_hint: {'top': 1, 'left': 1}
+                    size_hint: 1, 1
+                    spacing: 100
+                    padding: 100
+
+
+                MDSeparator:
+
+                StackLayout:
+                    size_hint_y: None
+
+                    padding: dp(15)
+                    height: self.minimum_height
+                    spacing: dp(15)
+
+                    MDChip:
+                        text: "Python"
+                        color: .4470588235294118, .19607843137254902, 0, 1
+                        #selected_chip_color: .21176470535294, .098039627451, 1, 1
+                        icon: "language-python"
+                        on_release:root.open_website("https://www.python.org/")
+
+                    MDChip:
+                        text: "Kivy"
+                        color: .9215686274509803, 0, 0, 1
+                        #selected_chip_color: .21176470535294, .098039627451, 1, 1
+                        icon: "emoticon-cool"
+                        on_release:root.open_website("https://kivy.org/")
+
+                    MDChip:
+                        text: "Computer Vision"
+                        color: 100/255,149/255,237/255, 1
+                        #selected_chip_color: .21176470588235294, .09803921568627451, 1, 1
+                        icon: "math-compass"
+                        on_release:root.open_website("https://en.wikipedia.org/wiki/Computer_vision")
+
+                    MDChip:
+                        text: "Animation"
+                        color: 123/255,104/255,238/255, 1
+                        #selected_chip_color: .21176470588235294, .09803921568627451, 1, 1
+                        icon: "animation-play"
+                        on_release:root.open_website("https://en.wikipedia.org/wiki/Animation")
+
+                    MDChip:
+                        text: "Json"
+                        color: 218/255,165/255,32/255, 1
+                        #selected_chip_color: .21176470588235294, .09803921568627451, 1, 1
+                        icon: "code-json"
+                        on_release: root.open_website("https://en.wikipedia.org/wiki/JSON")
+
+                    MDChip:
+                        text: "Database"
+                        color: 255/255,127/255,80/255, 1
+                        #selected_chip_color: .21176470588235294, .09803921568627451, 1, 1
+                        icon: "database"
+                        on_release: root.open_website("https://en.wikipedia.org/wiki/Database")
+
+                    MDChip:
+                        text: "Deep Learning"
+                        color: 46/255,139/255,87/255, 1
+                        #selected_chip_color: .21176470588235294, .09803921568627451, 1, 1
+                        icon: "earth"
+                        on_release:root.open_website("https://en.wikipedia.org/wiki/Deep_learning")
+
+                    MDChip:
+                        text: "HTML"
+                        color: 218/255,112/255,214/255, 1
+                        #selected_chip_color: .21176470588235294, .09803921568627451, 1, 1
+                        icon: "language-html5"
+                        on_release: root.open_website("https://en.wikipedia.org/wiki/HTML")
+                    MDChip:
+                        text: "App"
+                        color: 219/255,112/255,147/255, 1
+                        #selected_chip_color: .21176470588235294, .09803921568627451, 1, 1
+                        icon: "apps"
+                        on_release: root.open_website("https://en.wikipedia.org/wiki/App")
+                    MDChip:
+                        text: "Algorithm"
+                        color: 70/255,130/255,180/255, 1
+                        #selected_chip_color: .21176470588235294, .09803921568627451, 1, 1
+                        icon: "math-integral"
+                        on_release: root.open_website("https://en.wikipedia.org/wiki/Algorithm")
+                Widget:
+
+    MDNavigationDrawer:
+        id: nav
+        type:"modal"
+        #type:"standard"
+        #state:"close"
+        #status:'opening_with_swipe'
+        # close_on_click: False
+        # swipe_edge_width: 0
+        canvas:
+            Color:
+                rgba: (204/255,255/255,255/255,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        BoxLayout:
+            orientation: 'vertical'
+            GridLayout:
+                cols: 1
+                pos_hint: {'top': .6, 'left': 1}
+                size_hint: 1, .15
+            GridLayout:
+                id:avatar_grid
+                #row_force_default: True
+                #row_default_height: 40
+                cols: 1
+                pos_hint: {'top': .4, 'left': 1}
+                size_hint: 1, 0.5
+                #spacing: 10
+                #padding: 20
+
+                AsyncImage:
+                    id: avatar_button
+                    source: 'https://wound-1301658428.cos.ap-nanjing.myqcloud.com/avatars/man-1.png'
+                Label:
+                    id: slide_name_label
+                    text: 'FHL'
+                    font_size: "20dp"
+                    bold: True
+                    color:0,0,0,1
+                    halign: 'center'
+
+
+            ScrollView:
+                MDList:
+                    OneLineIconListItem:
+                        font_style:"H6"
+                        text: 'Dashboard'
+
+                        IconLeftWidget:
+                            icon: "view-dashboard"
+                            on_press:nav.set_state('close')
+
+                    OneLineIconListItem:
+                        font_style:"H6"
+                        text: 'Add Patient'
+                        on_press: root.add_patient_slide_button()
+                        IconLeftWidget:
+                            icon: "table-plus"
+                    OneLineIconListItem:
+                        font_style:"H6"
+                        text: 'Upload & Analysis'
+                        on_press:
+                            root.upload_slide_button()
+                            nav.set_state('close')
+                        IconLeftWidget:
+                            icon: "folder-upload"
+                    OneLineIconListItem:
+                        font_style:"H6"
+                        text: 'AI Analysis'
+                        on_press: root.model_slide_button()
+                        #on_release:
+                            #app.changeScreen('right', 'result')
+                            #nav.set_state('close')
+                        IconLeftWidget:
+                            icon: "brain"
+                    OneLineIconListItem:
+                        font_style:"H6"
+                        text: 'Patient List'
+                        on_press: root.info_to_history()
+                        IconLeftWidget:
+                            icon: "alpha-h-circle"
+                    OneLineIconListItem:
+                        font_style:"H6"
+                        text: 'Weather'
+                        on_press:
+                            root.tool_slide_button()
+                            nav.set_state('close')
+                        IconLeftWidget:
+                            icon: "weather-partly-cloudy"
+                    OneLineIconListItem:
+                        font_style:"H6"
+                        text: 'Setting'
+                        on_press:
+                            root.me_slide_button()
+                            root.me_name_callback()
+                        IconLeftWidget:
+                            icon: "application-settings"
+                    OneLineIconListItem:
+                        font_style:"H6"
+                        text: 'Help'
+                        on_press: root.help_slide_button()
+                        IconLeftWidget:
+                            icon: "help"
+                    OneLineIconListItem:
+                        font_style:"H6"
+                        text: 'About'
+                        on_press: root.about_slide_button()
+                        IconLeftWidget:
+                            icon: "alphabet-latin"
+                    OneLineIconListItem:
+                        font_style:"H6"
+                        text: 'Exit'
+                        on_press: root.warning()
+                        IconLeftWidget:
+                            icon: "exit-to-app"
+
+
+<WarningDialog@BoxLayout>
+    orientation: "vertical"
+    padding: dp(20)
+
+    MDLabel:
+        text: "Are you sure to exit the app?"
+        halign: "center"
+        valign: "center"
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_color
+
+    MDLabel:
+        text: "Please Confirm to Proceed"
+        theme_text_color: "Secondary"
+        font_style: "Caption"
+    BoxLayout:
+        orientation:'horizontal'
+        spacing:30
+        MDFillRoundFlatButton:
+            id: cancel
+            text: "Cancel"
+            pos_hint: {"center_x": .5}
+            md_bg_color: 1, .75, 0, 1
+
+        MDFillRoundFlatButton:
+            id: confirm
+            text: "Confirm"
+            on_press:app.stop()
+            pos_hint: {"center_x": .5}
+            md_bg_color: 1, .75, 0, 1
+
+
+<IconButtonTooltips@MDIconButton+MDTooltip>
+    icon: 'email-send'
+    tooltip_text: self.icon
+
+
+<QrcodeDialog>:
+
+    #size: root.size
+    #pos: root.pos
+    #orientation: "vertical"
+    SmartTileWithLabel:
+        size_hint_y: None
+        height: "190dp"
+        source: "https://wound-1301658428.cos.ap-nanjing.myqcloud.com/image/qrcode.png"
+

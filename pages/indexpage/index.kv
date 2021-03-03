@@ -1,0 +1,70 @@
+<IndexPage>:
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(10)
+
+        AKOnboarding:
+            id: boarding
+            on_finish: root.index_to_info()
+            circles_size: dp(15)
+
+            MyAKOnboardingItem:
+                source: "image/slide_one_img.png"
+                text: "This application is based on AI for wound analysis, which plays a role in assisting diagnosis, improves the accuracy of diagnosis, and reduces the workload of doctors"
+                title:"What is this App About?"
+
+            MyAKOnboardingItem:
+                source: "image/slide_two_img.png"
+                text: "You can view the detailed functions via Navigation drawer and the author's personal blog"
+                title:"How can we use it?"
+
+            MyAKOnboardingItem:
+                source: "image/slide_three_img.png"
+                text: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."
+                title:"Where does it come from?"
+
+<MyAKOnboardingItem@AKOnboardingItem>
+    source: ""
+    text: ""
+    title: ""
+
+    MDFloatLayout:
+
+        Image:
+            source: root.source
+            pos_hint: {"center_x": .5, "y": .6}
+            size_hint: .4, .3
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: dp(10)
+            adaptive_height: True
+            pos_hint: {"center_x": .5, "top": .5}
+            spacing: dp(20)
+            size_hint_x: .7
+
+            canvas.before:
+                Color:
+                    rgba: app.theme_cls.primary_dark
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+
+            MDLabel:
+                text: root.title
+                bold: True
+                size_hint_y: None
+                height: self.texture_size[1]
+                theme_text_color: "Primary"
+                font_style: "H6"
+                halign: "center"
+                valign: "center"
+
+            MDLabel:
+                size_hint_y: None
+                height: self.texture_size[1]
+                theme_text_color: "Primary"
+                font_style: "Body1"
+                halign: "center"
+                valign: "center"
+                text: root.text
